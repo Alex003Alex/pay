@@ -94,6 +94,22 @@
     <script>
         let selectedPaymentMethod = null;
 
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Set amount from URL parameter when page loads
+        window.onload = function() {
+            const amountFromUrl = getUrlParameter('amount');
+            if (amountFromUrl) {
+                document.getElementById('amount').value = amountFromUrl;
+            }
+        }
+
         function selectPaymentMethod(method) {
             selectedPaymentMethod = method;
             // Remove selected class from all payment methods
